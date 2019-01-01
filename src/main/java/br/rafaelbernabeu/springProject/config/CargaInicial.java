@@ -49,11 +49,9 @@ public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> 
                     System.out.println("Esperando...");
                     Thread.sleep(1);
                 }
-                System.out.println("Acadou!!!");
+                System.out.println("Acabou!!!");
                 System.out.println(x.get().toString());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         });
