@@ -1,11 +1,12 @@
-package br.rafaelbernabeu.springProject.entity;
+package br.rafaelbernabeu.springProject.entity.localidades;
 
+import br.rafaelbernabeu.springProject.entity.Regiao;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Data
@@ -13,11 +14,11 @@ import javax.persistence.OneToOne;
 public class Estado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String sigla;
     private String nome;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id")
     private Regiao regiao;
 }

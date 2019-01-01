@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.concurrent.Callable;
 
 @Service
-public class UsuarioCarga {
+public class UsuarioCarga implements Callable<Boolean> {
 
     @Autowired
     private UserService userService;
@@ -37,5 +38,15 @@ public class UsuarioCarga {
     public void setup() {
         salvarAdmin();
         salvarUser();
+    }
+
+    @Override
+    public Boolean call() throws Exception {
+        try {
+            setup();
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
     }
 }

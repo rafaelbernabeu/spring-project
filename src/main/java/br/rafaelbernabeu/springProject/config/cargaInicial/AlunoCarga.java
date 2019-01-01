@@ -5,8 +5,10 @@ import br.rafaelbernabeu.springProject.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Callable;
+
 @Service
-public class AlunoCarga {
+public class AlunoCarga implements Callable<Boolean> {
 
     @Autowired
     private AlunoService alunoService;
@@ -21,5 +23,15 @@ public class AlunoCarga {
 
     public void setup() {
         salvarAluno();
+    }
+
+    @Override
+    public Boolean call() throws Exception {
+        try {
+            setup();
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
     }
 }
