@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Data
@@ -16,8 +15,7 @@ public class Microrregiao {
     private Long id;
     private String nome;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Mesorregiao mesorregiao;
 
 

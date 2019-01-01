@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Data
@@ -18,8 +17,7 @@ public class Mesorregiao {
     private String nome;
 
     @JsonProperty(value = "UF")
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Estado uf;
 
 
