@@ -10,14 +10,16 @@ import javax.persistence.OneToOne;
 
 @Data
 @Entity
-public class Estado {
+public class Municipio {
 
     @Id
     private Long id;
-    private String sigla;
     private String nome;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id")
-    private Regiao regiao;
+    private Microrregiao microrregiao;
+
+    
+
 }

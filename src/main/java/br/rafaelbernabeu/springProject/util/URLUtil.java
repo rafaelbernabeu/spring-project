@@ -35,7 +35,10 @@ public class URLUtil {
     }
 
     private static String fetchData(String url) throws IOException {
-        Document document = Jsoup.connect(url).ignoreContentType(true).get();
+        Document document = Jsoup.connect(url)
+                .maxBodySize(0)
+                .ignoreContentType(true)
+                .get();
         return document.body().html();
     }
 

@@ -1,7 +1,7 @@
 package br.rafaelbernabeu.springProject.config;
 
 import br.rafaelbernabeu.springProject.config.cargaInicial.AlunoCarga;
-import br.rafaelbernabeu.springProject.config.cargaInicial.EstadosCarga;
+import br.rafaelbernabeu.springProject.config.cargaInicial.LocalidadesCarga;
 import br.rafaelbernabeu.springProject.config.cargaInicial.UsuarioCarga;
 import br.rafaelbernabeu.springProject.util.ThreadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -26,17 +26,16 @@ public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> 
     private AlunoCarga alunoCarga;
 
     @Autowired
-    private EstadosCarga estadosCarga;
+    private LocalidadesCarga localidadesCarga;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Collection<Callable<Boolean>> executaveis = new ArrayList<>();
-        executaveis.add(usuarioCarga);
-        executaveis.add(alunoCarga);
-        executaveis.add(estadosCarga);
-
         try {
-            executaAcoes(executaveis);
+            executaAcoes(Arrays.asList(
+                    usuarioCarga,
+                    localidadesCarga,
+                    alunoCarga
+            ));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,7 @@
 package br.rafaelbernabeu.springProject.config.cargaInicial;
 
-import br.rafaelbernabeu.springProject.entity.localidades.Estado;
-import br.rafaelbernabeu.springProject.service.localidades.EstadoService;
+import br.rafaelbernabeu.springProject.entity.localidades.Municipio;
+import br.rafaelbernabeu.springProject.service.localidades.MunicipioService;
 import br.rafaelbernabeu.springProject.util.IBGEServiceUtil;
 import br.rafaelbernabeu.springProject.util.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 @Service
-public class EstadosCarga implements Callable<Boolean> {
+public class LocalidadesCarga implements Callable<Boolean> {
 
     @Autowired
-    EstadoService estadoService;
+    MunicipioService municipioService;
 
     private void loadFromUrl() throws IOException {
-        List<Estado> estados = URLUtil.fetchAndParseList(IBGEServiceUtil.URL_SERVICE_ESTADOS, Estado.class);
-        estadoService.salvar(estados);
+        List<Municipio> municipios = URLUtil.fetchAndParseList(IBGEServiceUtil.URL_SERVICE_MUNICIPIOS, Municipio.class);
+        municipioService.salvar(municipios);
     }
 
     public void setup() throws IOException {

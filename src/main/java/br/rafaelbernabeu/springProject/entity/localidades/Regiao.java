@@ -1,4 +1,4 @@
-package br.rafaelbernabeu.springProject.entity;
+package br.rafaelbernabeu.springProject.entity.localidades;
 
 import lombok.Data;
 

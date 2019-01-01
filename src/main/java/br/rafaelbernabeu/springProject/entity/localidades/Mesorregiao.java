@@ -1,5 +1,6 @@
 package br.rafaelbernabeu.springProject.entity.localidades;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -10,14 +11,16 @@ import javax.persistence.OneToOne;
 
 @Data
 @Entity
-public class Estado {
+public class Mesorregiao {
 
     @Id
     private Long id;
-    private String sigla;
     private String nome;
 
+    @JsonProperty(value = "UF")
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id")
-    private Regiao regiao;
+    private Estado uf;
+
+
 }
