@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
 
 @Component
 public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> {
@@ -42,18 +40,7 @@ public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private <T> void executaAcoes(Collection<Callable<T>> executaveis) throws InterruptedException {
-        List<Future<T>> futures = ThreadUtil.getExecutorService().invokeAll(executaveis);
-        futures.forEach(x -> {
-            try {
-                while (!x.isDone()) {
-                    System.out.println("Esperando...");
-                    Thread.sleep(1);
-                }
-                System.out.println("Acabou!!!");
-                System.out.println(x.get().toString());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        });
+        ExecutorService executorService = ThreadUtil.getExecutorService();
+        executaveis.forEach(executorService::submit);
     }
 }

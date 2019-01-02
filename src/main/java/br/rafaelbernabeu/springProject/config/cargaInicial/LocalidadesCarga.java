@@ -22,9 +22,6 @@ public class LocalidadesCarga implements Callable<Boolean> {
     private MunicipioService municipioService;
 
     private void loadFromUrl() throws IOException {
-//        List<Estado> estados = URLUtil.fetchAndParseList(IBGEServiceUtil.URL_SERVICE_ESTADOS, Estado.class);
-//        estadoService.salvar(estados);
-
         List<Municipio> municipios = URLUtil.fetchAndParseList(IBGEServiceUtil.URL_SERVICE_MUNICIPIOS, Municipio.class);
         municipioService.salvar(municipios);
     }
