@@ -5,6 +5,7 @@ import br.rafaelbernabeu.springProject.service.localidades.EstadoService;
 import br.rafaelbernabeu.springProject.service.localidades.MunicipioService;
 import br.rafaelbernabeu.springProject.util.IBGEServiceUtil;
 import br.rafaelbernabeu.springProject.util.URLUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+@Slf4j
 @Service
 public class LocalidadesCarga implements Callable<Boolean> {
 
@@ -36,7 +38,7 @@ public class LocalidadesCarga implements Callable<Boolean> {
             setup();
             return Boolean.TRUE;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.debug(e.getMessage(), e);
             return Boolean.FALSE;
         }
     }

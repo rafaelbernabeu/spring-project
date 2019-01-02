@@ -1,6 +1,6 @@
 package br.rafaelbernabeu.springProject.config;
 
-import br.rafaelbernabeu.springProject.service.UsuarioLogadoService;
+import br.rafaelbernabeu.springProject.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsuarioLogadoService usuarioLogadoService;
+    private LoginService loginService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(usuarioLogadoService);
+        auth.userDetailsService(loginService);
     }
 
     @Override
@@ -30,8 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
+    public void configure(WebSecurity web) {
+        web
+            .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers(HttpMethod.GET, "/h2/**")
                 .antMatchers(HttpMethod.POST, "/h2/**");
     }

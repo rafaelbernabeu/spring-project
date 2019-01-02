@@ -1,6 +1,6 @@
 package br.rafaelbernabeu.springProject.config;
 
-import br.rafaelbernabeu.springProject.service.UsuarioLogadoService;
+import br.rafaelbernabeu.springProject.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 public class OAuth2Config {
 
-    private static final String RESOURCE_ID = "restservice";
+    private static final String RESOURCE_ID = "spring-project";
 
     @Configuration
     @EnableResourceServer
@@ -30,25 +30,27 @@ public class OAuth2Config {
 
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) {
-            resources
-                    .resourceId(RESOURCE_ID);
+            resources.resourceId(RESOURCE_ID);
         }
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                    .logout()
+                .logout()
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
-                    .and().authorizeRequests()
+                .and()
+                .authorizeRequests()
+                    .antMatchers("/**").authenticated()
+                    .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .anyRequest().denyAll();
+
 //                    .antMatchers("/user/**").hasAnyRole("ADMIN, USER")
 //                    .antMatchers("/carro/**").hasAnyRole("ADMIN, USER")
 //                    .antMatchers("/folder/**").hasAnyRole("ADMIN, USER")
 //                    .antMatchers("/song/**").hasAnyRole("ADMIN, USER")
 //                    .antMatchers("/telefone/**").permitAll()
 //                    .anyRequest().denyAll()
-                    .anyRequest().permitAll()
-                    .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
         }
 
     }
@@ -64,11 +66,10 @@ public class OAuth2Config {
         private AuthenticationManager authenticationManager;
 
         @Autowired
-        private UsuarioLogadoService userDetailsService;
+        private LoginService userDetailsService;
 
         @Override
-        public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-                throws Exception {
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
             endpoints
                     .tokenStore(this.tokenStore)
                     .authenticationManager(this.authenticationManager)
@@ -80,12 +81,12 @@ public class OAuth2Config {
             clients
                     .inMemory()
                     .withClient("client")
-                    .authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("all")
-                    .refreshTokenValiditySeconds(300000)
-                    .resourceIds(RESOURCE_ID)
                     .secret("{noop}123")
-                    .accessTokenValiditySeconds(50000)
-            ;
+                    .scopes("all")
+                    .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                    .resourceIds(RESOURCE_ID)
+                    .refreshTokenValiditySeconds(300000)
+                    .accessTokenValiditySeconds(50000);
 
         }
 
@@ -97,8 +98,5 @@ public class OAuth2Config {
             tokenServices.setTokenStore(this.tokenStore);
             return tokenServices;
         }
-
     }
-
-
 }

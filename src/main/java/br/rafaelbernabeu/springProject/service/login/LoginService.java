@@ -1,4 +1,4 @@
-package br.rafaelbernabeu.springProject.service;
+package br.rafaelbernabeu.springProject.service.login;
 
 import br.rafaelbernabeu.springProject.entity.User;
 import br.rafaelbernabeu.springProject.repository.UserRepository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class UsuarioLogadoService implements UserDetailsService {
+public class LoginService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
