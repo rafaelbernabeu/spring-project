@@ -1,6 +1,5 @@
 package br.rafaelbernabeu.springProject.config;
 
-import br.rafaelbernabeu.springProject.config.cargaInicial.AlunoCarga;
 import br.rafaelbernabeu.springProject.config.cargaInicial.LocalidadesCarga;
 import br.rafaelbernabeu.springProject.config.cargaInicial.UsuarioCarga;
 import br.rafaelbernabeu.springProject.util.ThreadUtil;
@@ -21,9 +20,6 @@ public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> 
     private UsuarioCarga usuarioCarga;
 
     @Autowired
-    private AlunoCarga alunoCarga;
-
-    @Autowired
     private LocalidadesCarga localidadesCarga;
 
     @Override
@@ -31,8 +27,7 @@ public class CargaInicial implements ApplicationListener<ContextRefreshedEvent> 
         try {
             executaAcoes(Arrays.asList(
                     usuarioCarga,
-                    localidadesCarga,
-                    alunoCarga
+                    localidadesCarga
             ));
         } catch (InterruptedException e) {
             e.printStackTrace();

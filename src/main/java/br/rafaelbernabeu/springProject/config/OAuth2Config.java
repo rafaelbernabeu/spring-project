@@ -87,8 +87,8 @@ public class OAuth2Config {
                     .resourceIds(RESOURCE_ID)
                     .refreshTokenValiditySeconds(300000)
                     .accessTokenValiditySeconds(50000);
-
         }
+
 
         @Bean
         @Primary
