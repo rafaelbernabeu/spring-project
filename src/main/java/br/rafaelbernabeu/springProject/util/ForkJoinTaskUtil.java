@@ -65,11 +65,11 @@ public class ForkJoinTaskUtil<T> extends RecursiveTask<Collection<T>> {
         int listSize = tasks.size();
         int cores = Runtime.getRuntime().availableProcessors();
         if (listSize >= 1000) {
-            return (listSize / (cores * cores)) + 1;
+            return (listSize / (cores * 8)) + 1;
         } else if (listSize >= 100) {
-            return  (listSize / (cores * 2)) + 1;
+            return  (listSize / (cores * 4)) + 1;
         } else {
-            return (listSize / (cores)) + 1;
+            return (listSize / (cores * 2)) + 1;
         }
 //        return listSize / cores > 2 ? listSize / cores : 2;
     }
