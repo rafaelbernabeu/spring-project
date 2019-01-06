@@ -23,7 +23,7 @@ public class URLUtil {
         return objectMapper;
     }
 
-    private static <T> T parseListofData(String jsonData, Class<T> responseType) throws IOException {
+    private static <T> List<T> parseListofData(String jsonData, Class<T> responseType) throws IOException {
         ObjectMapper mapper = getObjectMapper();
         CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(List.class, responseType);
         return mapper.readValue(jsonData, collectionType);
@@ -47,7 +47,7 @@ public class URLUtil {
     }
 
     public static <T> List<T> fetchAndParseList(String url, Class<T> responseType) throws IOException {
-        return (List<T>) parseListofData(fetchData(url), responseType);
+        return parseListofData(fetchData(url), responseType);
     }
 
 }
