@@ -10,17 +10,8 @@ import java.util.List;
 
 public class URLUtil {
 
-    private static ObjectMapper objectMapper;
-
     public static ObjectMapper getObjectMapper() {
-        if (objectMapper == null) {
-            synchronized (URLUtil.class) {
-                if (objectMapper == null) {
-                    objectMapper = new ObjectMapper();
-                }
-            }
-        }
-        return objectMapper;
+        return SingletonUtil.getInstance(ObjectMapper.class);
     }
 
     private static <T> List<T> parseListofData(String jsonData, Class<T> responseType) throws IOException {
